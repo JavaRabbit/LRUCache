@@ -57,6 +57,10 @@ namespace LRUCache
             mycache.mylist.printList();
             mycache.Clear();
             Console.WriteLine("The size of the dll is now: " + mycache.mylist.size);
+
+            mycache.Add("doggy", 22);
+            Console.WriteLine("The size of my cache is" + mycache.fullness);
+            Console.WriteLine("The size of my DLL is " + mycache.mylist.size);
         }
 
         void Add(string key, int pages)   // this cache takes in a string key, and an array of pages
@@ -104,6 +108,10 @@ namespace LRUCache
         void Clear()   // this will clear the cache and the dictionary
         {
             this.mylist.deleteList();
+
+            // now clear the dictionary
+            this.myDictionary.Clear();
+            this.fullness = 0;  // reset the fullness to 0
         }
 
         //bool TryGetValue(string key, out int val)
