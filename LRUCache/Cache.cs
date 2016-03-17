@@ -40,6 +40,7 @@ namespace LRUCache
             Console.WriteLine("The size of my cache is" + mycache.fullness);
             Console.WriteLine("The size of my DLL is " + mycache.mylist.size);
 
+
             mycache.Add("doggy", 22);
             Console.WriteLine("The size of my cache is" + mycache.fullness);
             Console.WriteLine("The size of my DLL is " + mycache.mylist.size);
@@ -54,6 +55,8 @@ namespace LRUCache
             mycache.Add("hot dog", 22);
             mycache.Add("sharks", 22);
             mycache.mylist.printList();
+            mycache.Clear();
+            Console.WriteLine("The size of the dll is now: " + mycache.mylist.size);
         }
 
         void Add(string key, int pages)   // this cache takes in a string key, and an array of pages
@@ -100,7 +103,7 @@ namespace LRUCache
 
         void Clear()   // this will clear the cache and the dictionary
         {
-
+            this.mylist.deleteList();
         }
 
         //bool TryGetValue(string key, out int val)
@@ -116,8 +119,8 @@ namespace LRUCache
     public class Node
     {
         public string data;
-        public Node next;
-        public Node prev;
+        public Node next = null;
+        public Node prev = null;
 
         public Node(string s)
         {
@@ -198,6 +201,28 @@ namespace LRUCache
             {
                 Console.WriteLine(iter.data);
                 iter = iter.next;
+            }
+        }
+
+        public void deleteList()
+        {
+            if(head == null)
+            {
+                Console.WriteLine("The list is empty, nothing to delete");
+                return;
+            }
+            Node del  = head;  // del will be the node to delete
+            Node temp = head.next; // temp is the node that is one ahead of del
+            while(del != null)
+            {
+                del.prev = null;
+                del.next = null;
+                size--; // each time a node is deleted
+                del = temp;
+                if (temp != null)   // only if temp is not null, then we'll move temp
+                {
+                    temp = temp.next;
+                }
             }
         }
     }
